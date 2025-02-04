@@ -17,12 +17,10 @@ class WhatsApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor : backgroundColor,
       ),
-      home: const ResponsiveLayout(mobileScreenLayout: MobileScreenLayout(), webScreenLayout: WEBScreenLayout()),
+      home: ResponsiveLayout(mobileScreenLayout: MobileScreenLayout(), webScreenLayout:  WEBScreenLayout()),
     );
   }
 }
-
-
 
 
 

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:whats_app_responsive/Widgets/colors.dart';
 
+import '../Screens/tab_status.dart';
+
 class WebProfileBar extends StatelessWidget {
-  const WebProfileBar({super.key});
+  final GlobalKey<ScaffoldState> drawerKey;
+   const WebProfileBar({super.key, required this.drawerKey});
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +25,20 @@ class WebProfileBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtxaPKJwJHUtNBCm8cJf1YNnLjwkvkfk0o7g&s'),
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>StatusTab()));
+            },
+            child: CircleAvatar(
+              backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtxaPKJwJHUtNBCm8cJf1YNnLjwkvkfk0o7g&s'),
+            ),
           ),
           Row(
             children: [
               IconButton(onPressed: (){}, icon: Icon(Icons.comment,color: Colors.grey,)),
-              IconButton(onPressed: (){}, icon: Icon(Icons.more_vert,color: Colors.grey,)),
+    IconButton(onPressed: () {
+    drawerKey.currentState?.openEndDrawer(); },
+    icon: const Icon(Icons.more_vert, color: Colors.grey), ),
             ],
           ),
         ],

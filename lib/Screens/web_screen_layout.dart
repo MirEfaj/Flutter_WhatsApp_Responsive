@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:whats_app_responsive/Widgets/colors.dart';
 import '../Widgets/chat_list.dart';
 import '../Widgets/contacts_list.dart';
+import '../Widgets/drawer_settings.dart';
 import '../Widgets/web_chat_appbar.dart';
 import '../Widgets/web_profile_bar.dart';
 import '../Widgets/web_search_bar.dart';
 
 
 class WEBScreenLayout extends StatelessWidget {
-  const WEBScreenLayout({super.key});
+   WEBScreenLayout({super.key});
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
+  TextEditingController msgController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _drawerKey,
+        endDrawer: const CustomDrawer(),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -21,7 +26,7 @@ class WEBScreenLayout extends StatelessWidget {
               child: Column(
                 children: [
                   //web prof bar
-                  WebProfileBar(),
+                  WebProfileBar(drawerKey: _drawerKey,),
                   //web search
                   WebSearchBar(),
                   ContactsList(),
@@ -58,10 +63,15 @@ class WEBScreenLayout extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(onPressed: (){}, icon: const Icon(Icons.emoji_emotions_outlined, color: Colors.grey,)),
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.attach_file, color: Colors.grey,)),
+                      IconButton(onPressed: () {},
+                        icon: const Icon(Icons.more_vert, color: Colors.grey), ),
                       Expanded(child: Padding(padding: EdgeInsets.only(left: 10,right: 15),
                       child: TextFormField(
+                        controller: msgController,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(onPressed: (){
+                            msgController.clear();
+                          }, icon: Icon(Icons.send ,)),
                           fillColor: searchBarColor,
                           filled: true,
                           hintText: 'Type a message',
